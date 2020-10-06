@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package escalonamentofilas;
 
 import java.util.ArrayList;
@@ -17,6 +12,8 @@ public class EscalonamentoFilas {
     static ArrayList<Processo> fila1 = new ArrayList();
     static ArrayList<Processo> fila2 = new ArrayList();
     static ArrayList<Processo> fila3 = new ArrayList();
+    
+    static int contPross = 0; //Contador de processos para determinar o id
     
     static Random aleatorio = new Random(); //Usada para gerar um UCP aleatório
     
@@ -53,7 +50,8 @@ public class EscalonamentoFilas {
         boolean aux = aleatorio.nextBoolean();
         
         if(aux) { //Se sim, cria um novo processo
-            Processo p = new Processo(aleatorio.nextInt(9) + 1); //Sorteia o UCP do processo de 1 a 10
+            contPross++;
+            Processo p = new Processo(contPross, aleatorio.nextInt(9) + 1); //Sorteia o UCP do processo de 1 a 10
             fila1.add(p); //Adiciona o processo no final da fila 1
         }
     }
@@ -65,7 +63,8 @@ public class EscalonamentoFilas {
     public static void processoFila1() throws InterruptedException {
         int aux = 2 - fila1.get(0).getUCP(); //Subtrai o quantum pelo UCP do processo
         
-        System.out.println("\nExecutando processo da fila 1...");
+        //Exibe qual processo está sendo executado
+        System.out.println("\nExecutando processo " + fila1.get(0).getId() + " na fila 1...");
         new Thread().sleep(2000); //Aguarda o tempo do quantum
         
         if(aux >= 0) { //Verifica se o processo foi concluído
@@ -86,7 +85,8 @@ public class EscalonamentoFilas {
     public static void processoFila2() throws InterruptedException {
         int aux = 4 - fila2.get(0).getUCP(); //Subtrai o quantum pelo UCP do processo
         
-        System.out.println("\nExecutando processo da fila 2...");
+        //Exibe qual processo está sendo executado
+        System.out.println("\nExecutando processo " + fila2.get(0).getId() + " na fila 2...");
         new Thread().sleep(4000); //Aguarda o tempo do quantum
         
         if(aux >= 0) { //Verifica se o processo foi concluído
@@ -107,7 +107,8 @@ public class EscalonamentoFilas {
     public static void processoFila3() throws InterruptedException {
         int aux = 8 - fila3.get(0).getUCP(); //Subtrai o quantum pelo UCP do processo
         
-        System.out.println("\nExecutando processo da fila 3...");
+        //Exibe qual processo está sendo executado
+        System.out.println("\nExecutando processo " + fila3.get(0).getId() + " na fila 3...");
         new Thread().sleep(8000); //Aguarda o tempo do quantum
         
         if(aux >= 0) { //Verifica se o processo terminou
